@@ -17,7 +17,7 @@ const std::string high_scores_filename = "high_scores.txt";
 	std::cin >> user_name;
 	
 	const int max_value = 100;
-	std::srand(std::time(nullptr)); 
+	srand(static_cast<unsigned int>(time(NULL)));
 	const int random_value = std::rand() % max_value;
 	std::cout <<"guess_the_number>>"<< random_value << std::endl;
 
