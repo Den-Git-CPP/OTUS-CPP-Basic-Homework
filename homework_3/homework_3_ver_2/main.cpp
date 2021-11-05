@@ -9,6 +9,7 @@
 
 #include "check_value.h"
 #include "print_table_score.h"
+#include "save_table_score.h"
 
 
 
@@ -27,8 +28,6 @@ int main(int argc, char** argv)
 		std::cout << std::endl;
 
 	}
-	
-	// To check - does use print some other argument we should check if the argc >= 2
 	if (argc >= 2) {
 		std::string arg1_value{ argv[1] };
 		if (arg1_value == "-max") 
@@ -83,22 +82,10 @@ int main(int argc, char** argv)
 	attempts_count = check_value(random_value);
 
 	// Write new high score to the records table
-	{
-		// We should open the output file in the append mode - we don't want
-		// to erase previous results.
-		std::ofstream out_file{ high_scores_filename, std::ios_base::app };
-		if (!out_file.is_open()) {
-			std::cout << "Failed to open file for write: " << high_scores_filename << "!" << std::endl;
-			return -1;
-		}
+	save_table_score(high_scores_filename, user_name, attempts_count);
 
-		// Append new results to the table:
-		out_file << user_name << ' ' << attempts_count;
-		out_file << std::endl;
-	} // end of score here just to mark end of the logic block of code
-
-	print_table_score(high_scores_filename);// Read the high score file and print all results
-
+	// Read the high score file and print all results
+	print_table_score(high_scores_filename);
 
 
 	return 0;

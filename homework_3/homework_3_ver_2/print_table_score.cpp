@@ -2,6 +2,8 @@
 #include <fstream>
 #include <string>
 
+#include "print_table_score.h"
+
 void print_table_score(const std::string& table_path)
 {
 	// Read the high score file and print all results

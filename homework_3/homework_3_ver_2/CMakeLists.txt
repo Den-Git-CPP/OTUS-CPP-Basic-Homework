@@ -5,8 +5,13 @@ project (homework_3)
 add_executable(homework_3 
 check_value.h 
 check_value.cpp
+
+save_table_score.h
+save_table_score.cpp
+
 print_table_score.h
 print_table_score.cpp
+
 main.cpp
 )
 
