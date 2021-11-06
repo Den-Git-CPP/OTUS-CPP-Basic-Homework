@@ -1,16 +1,16 @@
 #define  DEFAULT_MAX_VALUE 100
 
 #include <iostream>
-#include <fstream>
 #include <string>
 
 #include <cstdlib>
 #include <ctime>
+#include <vector>
 
 #include "check_value.h"
 #include "print_table_score.h"
 #include "save_table_score.h"
-
+#include "work_with_result.h"
 
 
 int main(int argc, char** argv)
@@ -78,11 +78,17 @@ int main(int argc, char** argv)
 		<< ")"
 		<< std::endl;
 
-	int attempts_count{ 0 };
+	int attempts_count{ 0};
+
 	attempts_count = check_value(random_value);
+	// update table result
+	std::vector<std::pair<std::string, int>> score_table;
+	
+	// update table with new result
+	score_table= Best_result (high_scores_filename, user_name,attempts_count);
 
 	// Write new high score to the records table
-	save_table_score(high_scores_filename, user_name, attempts_count);
+	save_table_score(high_scores_filename,score_table);
 
 	// Read the high score file and print all results
 	print_table_score(high_scores_filename);

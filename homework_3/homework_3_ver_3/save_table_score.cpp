@@ -1,13 +1,12 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <vector>
 
 #include "save_table_score.h"
 
-void save_table_score(const std::string& table_path, const std::string& user_name, const int& attempts_count)
+void save_table_score(const std::string& table_path, std::vector<std::pair<std::string, int>> table)
 {
-	// Write new high score to the records table
-	{
 		// We should open the output file in the append mode - we don't want
 		// to erase previous results.
 		std::ofstream out_file{ table_path, std::ios_base::app };
@@ -16,9 +15,13 @@ void save_table_score(const std::string& table_path, const std::string& user_nam
 			exit(1);
 		}
 
+		for (auto elem:table )
 		// Append new results to the table:
-		out_file << user_name << ' ' << attempts_count;
+		{
+		out_file << elem.first << ' ' << elem.second;
 		out_file << std::endl;
-	} // end of score here just to mark end of the logic block of code
+		}
+		
+	
 
 }

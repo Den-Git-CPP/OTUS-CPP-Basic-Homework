@@ -6,6 +6,9 @@ add_executable(homework_3
 check_value.h 
 check_value.cpp
 
+work_with_result.h
+work_with_result.cpp
+
 save_table_score.h
 save_table_score.cpp
 
