@@ -1,4 +1,4 @@
-#define  DEFAULT_MAX_VALUE 100
+
 
 #include <iostream>
 #include <string>
@@ -16,7 +16,9 @@
 int main(int argc, char** argv)
 {
 	// Arguments
-	int parameter_value = 0;
+	int DEFAULT_MAX_VALUE {200};
+	int parameter_level = 0;
+	int parameter_value = 0; int MAX_VALUE{150};
 	const std::string high_scores_filename = "high_scores.txt";
 
 
@@ -30,6 +32,7 @@ int main(int argc, char** argv)
 	}
 	if (argc >= 2) {
 		std::string arg1_value{ argv[1] };
+
 		if (arg1_value == "-max") 
 		{
 			// We've detected the '-parameter' argument. And we extect that after this argument there is a value:
@@ -40,14 +43,47 @@ int main(int argc, char** argv)
 
 			// We need to parse the string to the int value
 			parameter_value = std::stoi(argv[2]);
+
 			std::cout << ">guess_the_number -max " << parameter_value << std::endl;
+			std::cout << std::endl;
+
+		}
+		
+		if (arg1_value == "-level") 
+		{
+			// We've detected the '-parameter' argument. And we extect that after this argument there is a value:
+			if (argc < 3) {
+				std::cout << "Wrong usage! The argument '-level' requires some value!" << std::endl;
+				return -1;
+			}
+			
+			// We need to parse the string to the int value
+			parameter_level = std::stoi(argv[2]);
+		
+			switch (parameter_level)
+			{
+			case 1:
+				MAX_VALUE= 10;
+				break;
+			case 2:
+				MAX_VALUE= 50;
+				break;
+			case 3:
+				MAX_VALUE= 100;
+				break;
+			default:
+				MAX_VALUE= 200;
+				break;
+			}
+
+			std::cout << ">guess_the_number -level " << parameter_level << std::endl;
 			std::cout << std::endl;
 
 		}
 		
 		if (arg1_value == "-table")
 		{
-			std::cout << ">guess_the_number -table" << std::endl;
+			std::cout << ">guess_the_number -table " << std::endl;
 			std::cout << std::endl;
 
 			print_table_score(high_scores_filename);// Read the high score file and print all results
@@ -65,6 +101,7 @@ int main(int argc, char** argv)
 	int max_value = DEFAULT_MAX_VALUE;
 
 	if(parameter_value!=0) max_value =parameter_value;
+	if (parameter_level != 0) max_value = MAX_VALUE;
 
 	srand(static_cast<int>(time(NULL)));
 	const int random_value = std::rand() % max_value;
