@@ -1,44 +1,26 @@
 #include <iostream>
 #include <limits>
+#include "IStatistics.h"
 
-class IStatistics {
-public:
-	virtual ~IStatistics() {}
-
-	virtual void update(double next) = 0;
-	virtual double eval() const = 0;
-	virtual const char * name() const = 0;
-};
-
-class Min : public IStatistics {
-public:
-	Min() : m_min{std::numeric_limits<double>::min()} {
-	}
-
-	void update(double next) override {
-		if (next < m_min) {
-			m_min = next;
-		}
-	}
-
-	double eval() const override {
-		return m_min;
-	}
-
-	const char * name() const override {
-		return "min";
-	}
-
-private:
-	double m_min;
-};
+#include "Min.h"
+#include "Max.h"
+#include "Mean.h"
+#include "Std.h"
 
 int main() {
 
-	const size_t statistics_count = 1;
-	IStatistics *statistics[statistics_count];
+	const size_t statistics_count = 4;
+	IStatistics* statistics[statistics_count];
 
 	statistics[0] = new Min{};
+	statistics[1] = new Max{};
+	statistics[2] = new Mean{};
+	statistics[3] = new Std{};
+
+	std::cout<<"Enter a sequence of numbers.\n"
+	<<"After stopping typing, press the keyboard shortcuts Enter and then\n"
+	<<"For Windows\tCTRL+Z, ENTER\n"
+	<<"For Linux\tCTRL+D\n";
 
 	double val = 0;
 	while (std::cin >> val) {
@@ -64,4 +46,5 @@ int main() {
 	}
 
 	return 0;
+
 }
