@@ -1,6 +1,8 @@
 #pragma once
 #include <iostream>
 #include "IStatistics.h"
+#include <limits>
+
 
 class Min : public IStatistics {
 public:

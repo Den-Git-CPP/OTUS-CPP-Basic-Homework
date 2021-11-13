@@ -1,21 +1,24 @@
 #include <iostream>
-#include <limits>
 #include "IStatistics.h"
 
 #include "Min.h"
 #include "Max.h"
 #include "Mean.h"
 #include "Std.h"
+#include "Prcnt.h"
+
 
 int main() {
 
-	const size_t statistics_count = 4;
+	const size_t statistics_count = 6;
 	IStatistics* statistics[statistics_count];
 
 	statistics[0] = new Min{};
 	statistics[1] = new Max{};
 	statistics[2] = new Mean{};
 	statistics[3] = new Std{};
+	statistics[4] = new Prcnt(90);
+	statistics[5] = new Prcnt(95);
 
 	std::cout<<"Enter a sequence of numbers.\n"
 	<<"After stopping typing, press the keyboard shortcuts Enter and then\n"
