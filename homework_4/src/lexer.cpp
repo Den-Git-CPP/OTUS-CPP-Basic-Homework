@@ -1,8 +1,4 @@
-// OTUS C++ Basic course homework skeleton.
-// Lexer implementation
-
 #include "lexer.hpp"
-
 #include <cctype>
 
 Lexer::Token Lexer::next_token() {
