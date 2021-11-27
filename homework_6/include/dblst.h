@@ -2,26 +2,31 @@
 template <typename T>
 class DBlist {
   struct Node {
-    T value;     // значение элемента списка
-    Node *next;  // ссылка на следующий элемент
-    Node *prev;  // ссылка на предыдущий элемент
+    T value;     // data 
+    Node *next;  // СЃСЃС‹Р»РєР° СЃР»РµРґСѓСЋС‰РёР№ СЌР»РµРјРµРЅС‚
+    Node *prev;  // СЃСЃС‹Р»РєР° РїРµСЂРґС‹РґСѓС‰РёР№ СЌР»РµРјРµРЅС‚
   };
-  Node *head;  // начало списка
-  Node *tail;  // конец списка
+  Node *head;  // РЅР°С‡Р°Р»Рѕ СЃРїРёСЃРєР°
+  Node *tail;  // РєРѕРЅРµС† СЃРїРёСЃРєР°
   int count;
 
  public:
   DBlist();
   DBlist(const DBlist<T> &list);
   DBlist &operator=(const DBlist<T> &list);
-  int size() const;
+
+  int size() const; 
+  bool is_empty() const; 
   T &operator[](int index);
   void push_first(const T &value);
   void push_back(const T &value);
   void push_medium(const T &value);
-  void remove_at(int index);
-  void all_map() const;
-
+  void insert(int index,const T &value);
+  void remove_front(); 
+  void remove_back();  
+  void remove_medium(); 
+  void erase(int index);
+  void all_map() const; 
   ~DBlist();
 };
 
@@ -83,6 +88,10 @@ int DBlist<T>::size() const {
   return count;
 }
 template <typename T>
+bool DBlist<T>::is_empty() const {
+	return count == 0;
+}
+template <typename T>
 inline T &DBlist<T>::operator[](int index) {
   if (index < 0 || index >= count)
     throw "DBlist::operator[index]: index out of bounds";
@@ -123,9 +132,13 @@ void DBlist<T>::push_back(const T &value) {
   count++;
 }
 template <typename T>
-void DBlist<T>::push_medium(const T &value) {
-  int index = count / 2;
-
+void DBlist<T>::push_medium(const T &value){
+  insert(count/2,value);
+}
+template <typename T>
+void DBlist<T>::insert(int index,const T &value) {
+  if (index < 0 || index >= count)
+		throw "DBlist::insert(index): index out of bounds";
   Node *prev = head;
   while (index - 1) {
     index--;
@@ -141,7 +154,42 @@ void DBlist<T>::push_medium(const T &value) {
   count++;
 }
 template <typename T>
-void DBlist<T>::remove_at(int index) {
+void DBlist<T>::remove_front() {
+	// РµСЃР»Рё СЃРїРёСЃРѕРє РїСѓСЃС‚ РёСЃРєР»СЋС‡РµРЅРёРµ
+	if (is_empty())
+		throw "DBlist::remove_front: list is empty"; 
+	Node *tmp = head; 
+  head = head->next; 
+	delete tmp;
+	count--; 
+	if (head == nullptr) {
+    tail = nullptr;
+	}
+	else {
+		head->prev = nullptr;
+	}
+}
+template <typename T>
+void DBlist<T>::remove_back() {
+	if (is_empty())
+		throw "DBlist::remove_back: list is empty"; // Р±СЂРѕСЃР°РµРј РёСЃРєР»СЋС‡РµРЅРёРµ
+	Node *tmp = tail;
+	tail = tail->prev; 
+	delete tmp; 
+	count--; 
+	if (tail == nullptr) {
+		head = nullptr; 
+	}
+	else {
+		tail->next = nullptr; 
+	}
+}
+template <typename T>
+void DBlist<T>::remove_medium(){
+erase(count/2-1);
+}
+template <typename T>
+void DBlist<T>::erase(int index) {
   if (index < 0 || index >= count) {
     throw "DBlist::remove_at(index): index out of bounds";
   }
@@ -152,10 +200,10 @@ void DBlist<T>::remove_at(int index) {
     prev = node;
     node = node->next;
   }
-  count--;           // уменьшаем длину
-  Node *tmp = node;  // запоминаем адрес нужного элемента
-  prev->next = node->next;  // подменяем указатели
-  node->next->prev = prev;  // минуя текущий элемент
+  count--;            
+  Node *tmp = node;  
+  prev->next = node->next;   
+  node->next->prev = prev;   
   delete tmp;
 }
 template <typename T>
