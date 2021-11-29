@@ -48,13 +48,13 @@ vctr<T>::vctr(int n, T data) {
 }
 template <typename T>
 vctr<T>::vctr(const vctr &src) {
-  deepCopy(src);
+  vctr_copy(src);
 }
 template <typename T>
 vctr<T> &vctr<T>::operator=(const vctr &src) {
   if (this != &src) {
     if (region != NULL) delete[] region;
-    deepCopy(src);
+    vctr_copy(src);
   }
   return *this;
 }
@@ -69,7 +69,7 @@ bool vctr<T>::is_empty() const {
 template <typename T>
 T &vctr<T>::operator[](int index) {
   if (index < 0 || index >= count)
-    std::cout << "vctr::operator[index]: index out of bounds";
+    throw std::out_of_range("vctr::operator[index]: index out of bounds");
   return region[index];
 }
 template <typename T>
@@ -88,7 +88,7 @@ template <typename T>
 void vctr<T>::insert(int index, T data) {
   if (count == capacity) up_capacity();
   if (index < 0 || index > count) {
-    throw "vctr::insert(index) out of range";
+    throw std::out_of_range("vctr::insert(index) out of range");
   }
   for (int i = count; i > index; i--) {
     region[i] = region[i - 1];
@@ -106,13 +106,12 @@ void vctr<T>::remove_back(){
 }
 template <typename T>
 void vctr<T>::remove_medium(){
-  
   erase(count/2-1);
 }
 template <typename T>
 void vctr<T>::erase(int index) {
   if (index < 0 || index >= count) {
-    throw "vctr::erase(index) out of range";
+    throw std::out_of_range("vctr::erase(index) out of range");
   }
   for (int i = index; i < count - 1; i++) {
     region[i] = region[i + 1];
