@@ -95,7 +95,7 @@ bool DBlist<T>::is_empty() const {
 template <typename T>
 inline T &DBlist<T>::operator[](int index) {
   if (index < 0 || index >= count)
-    throw "DBlist::operator[index]: index out of bounds";
+    throw std::out_of_range("DBlist::operator[index]: index out of bounds");
   Node *node = head;
   while (node != nullptr && index) {
     index--;
@@ -139,7 +139,7 @@ void DBlist<T>::push_medium(const T &value){
 template <typename T>
 void DBlist<T>::insert(int index,const T &value) {
   if (index < 0 || index >= count)
-		throw "DBlist::insert(index): index out of bounds";
+		throw std::out_of_range("DBlist::insert(index): index out of bounds");
   Node *prev = head;
   while (index - 1) {
     index--;
@@ -158,7 +158,7 @@ template <typename T>
 void DBlist<T>::remove_front() {
 	// если список пуст исключение
 	if (is_empty())
-		throw "DBlist::remove_front: list is empty"; 
+		throw std::out_of_range("DBlist::remove_front: list is empty"); 
 	Node *tmp = head; 
   head = head->next; 
 	delete tmp;
@@ -173,7 +173,7 @@ void DBlist<T>::remove_front() {
 template <typename T>
 void DBlist<T>::remove_back() {
 	if (is_empty())
-		throw "DBlist::remove_back: list is empty"; // бросаем исключение
+		throw std::out_of_range("DBlist::remove_back: list is empty"); // бросаем исключение
 	Node *tmp = tail;
 	tail = tail->prev; 
 	delete tmp; 
@@ -192,7 +192,7 @@ erase(count/2-1);
 template <typename T>
 void DBlist<T>::erase(int index) {
   if (index < 0 || index >= count) {
-    throw "DBlist::remove_at(index): index out of bounds";
+    throw std::out_of_range("DBlist::erase(index): index out of bounds");
   }
   Node *prev = nullptr;
   Node *node = head;

@@ -61,7 +61,7 @@ int main() {
  std::cout<<"remove_back 30   \t=>\t";
  contr1.remove_back();
  contr1.all_map();
-
+ 
  /*
  **------------------Container list------------
  */

@@ -19,19 +19,19 @@ add_executable(container
 target_include_directories(container PRIVATE include)
 
 # Test target
-add_executable(container_list
+add_executable(containers_tests
     test/containers_test.cpp
     test/dblst_test_list.cpp
     test/vctr_test_list.cpp
 )
 # Add src to the include directories for the test target
 target_include_directories(
-    container_list PRIVATE
+    containers_tests PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}/include"
 )
 # Link test target against gtest libraries
 target_link_libraries(
-    container_list PRIVATE
+    containers_tests PRIVATE
     gtest gtest_main
 )
 
@@ -41,7 +41,7 @@ if (MSVC)
         /W4
     )
     target_compile_options(
-        container_list PRIVATE
+        containers_tests PRIVATE
         /W4
     )
 else ()
@@ -53,10 +53,11 @@ else ()
         -Werror
     )
     target_compile_options(
-        container_list PRIVATE
+        containers_tests PRIVATE
         -Wall 
         -Wextra 
         -pedantic 
         -Werror
     )
+  
 endif()
