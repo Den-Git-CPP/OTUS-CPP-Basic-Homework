@@ -168,3 +168,18 @@ try { //Act
   }
 
 }
+
+TEST(DBlist, dblst_copy) {
+  // Arrange
+  DBlist<int> dblst1;
+  DBlist<int> dblst;
+  for (int i = 0; i < 10; ++i) {
+    dblst1.push_back(i);
+  }
+  // Act
+  dblst=dblst1;
+  // Assert
+  for (int i = 0; i < 10; ++i) {
+  ASSERT_EQ(dblst1[i], dblst[i]);
+  }
+}

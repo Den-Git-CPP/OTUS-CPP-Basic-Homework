@@ -168,3 +168,20 @@ try { //Act
 
 }
 
+TEST(vctr, v_copy) {
+  // Arrange
+  vctr<int> vector1;
+  vctr<int> vector2;
+  for (int i = 0; i < 10; ++i) {
+    vector1.push_back(i);
+  }
+  // Act
+  vector2=vector1;
+  // Assert
+  for (int i = 0; i < 10; ++i) {
+  ASSERT_EQ(vector1[i], vector2[i]);
+  }
+}
+
+
+
