@@ -13,19 +13,33 @@ mingw-make
 ./asn ../Gatsby.txt
 
 Замеры при считывании файла в однопоточном режиме
+
 Elapsed time is 218641 us
+
 Elapsed time is 204165 us
+
 Elapsed time is 197247 us
+
 Elapsed time is 319873 us
+
 Elapsed time is 192493 us
+
+
 Среднее время:  226483 us
 
 Замеры при считывании файла в многопоточном режиме
+
 Elapsed time is 197230 us
+
 Elapsed time is 175526 us
+
 Elapsed time is 178064 us
+
 Elapsed time is 207025 us
+
 Elapsed time is 210613 us
+
+
 Среднее время:	193692
 
 При применении многопоточности программа работает быстрее
